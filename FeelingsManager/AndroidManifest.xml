@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- PLEASE NOTE: There is no error check or auto-complete suggestions for class and package names in this file -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="com.thilo.android.FeelingsManager"
+  android:versionCode="1"
+  android:versionName="1" >
+
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+  <uses-permission android:name="com.android.browser.permission.READ_HISTORY_BOOKMARKS" />
+  <uses-permission android:name="android.permission.READ_CONTACTS" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Include required permissions for Google Mobile Ads to run-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+  <uses-sdk
+    android:minSdkVersion="15"
+    android:targetSdkVersion="19" />
+  <!-- project.properties also contains target version -->
+
+  <application
+    android:allowBackup="true"
+    android:icon="@drawable/kindmind_icon"
+    android:label="@string/app_name"
+    android:theme="@style/AppThemeKindMind" >
+    <!--This meta-data tag is required to use Google Play Services.-->
+        <meta-data android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version" />
+    <activity
+      android:name="com.thilo.android.FeelingsManager.Main.MainActivityC"
+      android:label="@string/app_name"
+      android:launchMode="standard" >
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    
+    <activity
+      android:name="com.thilo.android.FeelingsManager.Setup.ItemSetupActivityC"
+      android:label="@string/itemSetup_activityTitle" >
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="com.sunyata.kindmind.Main.MainActivityC" />
+    </activity>
+    
+    <activity
+      android:name="com.thilo.android.FeelingsManager.Setup.VideoChooserActivity"
+      android:label="@string/videoChooser_activityTitle" >
+    </activity>
+    
+    <activity
+      android:name="com.thilo.android.FeelingsManager.Setup.BookmarkChooserActivityC"
+      android:label="@string/bookmarkChooser_activityTitle" >
+    </activity>
+
+    <receiver android:name="com.thilo.android.FeelingsManager.WidgetAndNotifications.BootCompletedReceiverC" >
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+      </intent-filter>
+    </receiver>
+
+    <service android:name="com.thilo.android.FeelingsManager.WidgetAndNotifications.NotificationServiceC" >
+    </service>
+
+    <receiver android:name="com.thilo.android.FeelingsManager.WidgetAndNotifications.WidgetProviderC" >
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data
+        android:name="android.appwidget.provider"
+        android:resource="@xml/widget_info" />
+    </receiver>
+
+    <service
+      android:name="com.thilo.android.FeelingsManager.WidgetAndNotifications.RemoteViewsServiceC"
+      android:permission="android.permission.BIND_REMOTEVIEWS" >
+    </service>
+
+    <activity android:name="com.thilo.android.FeelingsManager.WidgetAndNotifications.WidgetConfigActivityC"
+      android:label="@string/widgetConfig_activityTitle" >
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+      </intent-filter>
+    </activity>
+
+    <provider
+      android:name="com.thilo.android.FeelingsManager.Database.ContentProviderM"
+      android:authorities="com.sunyata.kindmind.provider"
+      android:exported="true" >
+      <!-- grantUriPermission -->
+      <!--
+            PLEASE NOTE:
+            "If a provider's application doesn't specify any permissions, then other applications have no access
+             to the provider's data."
+             http://developer.android.com/guide/topics/providers/content-provider-basics.html#Permissions
+      -->
+      <!--
+            read permissions:
+            http://stackoverflow.com/questions/14793672/requesting-read-permission-from-my-own-contentprovider-in-another-app
+      -->
+      <!--
+            android:readPermission="com.sunyata.kindmind.contentprovider.permission.READ"
+            <uses-permission android:name="com.sunyata.kindmind.contentprovider.permission.READ" />
+      -->
+    </provider>
+
+    <service android:name="com.thilo.android.FeelingsManager.WidgetAndNotifications.LauncherServiceC" >
+    </service>
+
+    <activity
+      android:name="com.thilo.android.FeelingsManager.AboutActivityC"
+      android:label="@string/about_activityTitle" >
+      <meta-data
+        android:name="android.support.PARENT_ACTIVITY"
+        android:value="com.sunyata.kindmind.Main.MainActivityC" />
+    </activity>
+     <!--Include the AdActivity configChanges and theme. -->
+        <activity android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+
+    <service android:name="com.thilo.android.FeelingsManager.List.SortingAlgorithmServiceM" >
+    </service>
+    
+  </application>
+
+</manifest>
